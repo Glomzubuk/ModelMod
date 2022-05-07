@@ -25,7 +25,7 @@ namespace GentleSwap {
                 string remoteBundleName = Encoding.Default.GetString((byte[])message.ob);
 
                 Player player = Player.GetPlayer(remotePlayerNr);
-                Debug.Log(remoteBundleName);
+                GentleSwap.Log.LogDebug(remoteBundleName);
                 foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
                     if (remoteBundleName == bundle.bundleName) {
                         if (GentleSwap.screenPlayers != null) {

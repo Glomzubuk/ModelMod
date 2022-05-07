@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.IO;
 using System.Text;
 using UnityEngine;
 using HarmonyLib;
@@ -114,17 +117,120 @@ namespace GentleSwap {
 
             static void GetBundleString(ref Bundle __instance, ref string __result) {
                 if (__instance.bundleType == BundleType.DLC) {
-                    Debug.Log(__instance.dlc);
+                    GentleSwap.Log.LogDebug(__instance.dlc);
                     foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
                         if (__instance.dlc == bundle.dlc) {
-                            __result = $"characters/custom/{bundle.bundleName}";
+                            __result = "custom;" + Path.Combine(GentleSwap.customCharBundleDir.FullName,bundle.bundleName);
                         }
                     }
                 }
             }
+
+            [HarmonyPatch(typeof(LLHandlers.BundleHandler), nameof(LLHandlers.BundleHandler.CLoadBundle))]
+            [HarmonyPatch(MethodType.Enumerator, new Type[] { typeof(Bundle), typeof(BundleLoadType), typeof(string[]), typeof(Action), typeof(bool)})]
+            [HarmonyTranspiler]
+            static IEnumerable<CodeInstruction> CLoadBundle_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator iL)
+            {
+                CodeMatcher cm = new CodeMatcher(instructions, iL);
+
+                cm.MatchForward(false, // false = move at the start of the match, true = move at the end of the match
+                        new CodeMatch(OpCodes.Ldarg_0),
+                        new CodeMatch(OpCodes.Ldsfld),
+                        new CodeMatch(OpCodes.Ldarg_0),
+                        new CodeMatch(OpCodes.Ldfld),
+                        new CodeMatch(OpCodes.Call),
+                        new CodeMatch(OpCodes.Stfld)
+                        );
+                cm.Advance(3);
+                GentleSwap.Log.LogDebug(cm.Instruction);
+                var bundleName_fld = cm.Operand;
+                cm.Advance(2);
+                GentleSwap.Log.LogDebug(cm.Instruction);
+                var bundleFile_fld = cm.Operand;
+                cm.Advance(1);
+                try
+                {
+                    cm.Insert(
+                        new CodeInstruction(OpCodes.Ldarg_0),
+                        new CodeInstruction(OpCodes.Ldarg_0),
+                        new CodeInstruction(OpCodes.Ldfld, bundleName_fld),
+                        new CodeInstruction(OpCodes.Ldarg_0),
+                        new CodeInstruction(OpCodes.Ldfld, bundleFile_fld),
+                        Transpilers.EmitDelegate<Func<string, string, string>>((string bundleName, string bundleFile) =>
+                        {
+                            GentleSwap.Log.LogDebug("Name: " + bundleName);
+                            GentleSwap.Log.LogDebug("File: " + bundleFile);
+                            if (bundleName.StartsWith("custom;"))
+                            {
+                                return bundleName.Split(';')[1];
+                            }
+                            else
+                            {
+                                return LLHandlers.BundleHandler.bundlePath + bundleName;
+                            }
+                        }),
+                        new CodeInstruction(OpCodes.Stfld, bundleFile_fld)
+                    );
+                }
+                catch (Exception e)
+                {
+                    GentleSwap.Log.LogError(e);
+                }
+                return cm.InstructionEnumeration();
+
+            }
+
+
+            [HarmonyPatch(typeof(LLHandlers.BundleHandler), nameof(LLHandlers.BundleHandler.GetAssetBundle))]
+            [HarmonyTranspiler]
+            static IEnumerable<CodeInstruction> GetAssetBundle_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator iL)
+            {
+                CodeMatcher cm = new CodeMatcher(instructions, iL);
+
+                cm.MatchForward(false, // false = move at the start of the match, true = move at the end of the match
+                        new CodeMatch(OpCodes.Ldsfld),
+                        new CodeMatch(OpCodes.Ldarga_S),
+                        new CodeMatch(OpCodes.Call),
+                        new CodeMatch(OpCodes.Call),
+                        new CodeMatch(OpCodes.Stloc_2)
+                        );
+                cm.Advance(1);
+                GentleSwap.Log.LogDebug(cm.Instruction);
+                var bundle_arga_s = cm.Operand;
+                cm.Advance(1);
+                GentleSwap.Log.LogDebug(cm.Instruction);
+                var getBundleName_call = cm.Instruction;
+                cm.Advance(3);
+                GentleSwap.Log.LogDebug(cm.Instruction);
+                try
+                {
+                    cm.Insert(
+                        new CodeInstruction(OpCodes.Ldarga_S, bundle_arga_s),
+                        new CodeInstruction(getBundleName_call),
+                        new CodeInstruction(OpCodes.Ldloc_2),
+                        Transpilers.EmitDelegate<Func<string, string, string>>((string bundleName, string bundleFile) =>
+                        {
+                            GentleSwap.Log.LogDebug("Name: " + bundleName);
+                            GentleSwap.Log.LogDebug("File: " + bundleFile);
+                            if (bundleName.StartsWith("custom;"))
+                            {
+                                return bundleName.Split(';')[1];
+                            }
+                            else
+                            {
+                                return LLHandlers.BundleHandler.bundlePath + bundleName;
+                            }
+                        }),
+                        new CodeInstruction(OpCodes.Stloc_2)
+                    );
+                }
+                catch (Exception e)
+                {
+                    GentleSwap.Log.LogError(e);
+                }
+                return cm.InstructionEnumeration();
+
+            }
         }
-
-        
-
     }
 }

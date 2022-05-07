@@ -10,6 +10,11 @@
     <AssemblyName>GentleSwap</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildWarningsAsMessages>
+      $(MSBuildWarningsAsMessages);MSB3277
+    </MSBuildWarningsAsMessages>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -19,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -26,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -74,183 +81,243 @@
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ARModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AudioModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.BaselibModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.BaselibModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClothModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ClothModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.DirectorModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.FileSystemHttpModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.FileSystemHttpModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.GridModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.GridModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.HotReloadModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.HotReloadModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.LocalizationModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ProfilerModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ProfilerModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.StreamingModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.StreamingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.StyleSheetsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.StyleSheetsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.SubstanceModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.SubstanceModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextCoreModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TextCoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TilemapModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TimelineModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TimelineModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TLSModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.TLSModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UmbraModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UmbraModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UNETModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityTestProtocolModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VFXModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.VFXModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VideoModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.VRModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.VRModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.WindModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.XRModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

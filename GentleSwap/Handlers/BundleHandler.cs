@@ -12,11 +12,12 @@ namespace GentleSwap {
         public static List<CustomBundle> bundles = new List<CustomBundle>();
         public static KIIIINKJKNI kiiiinkjkni;
 
+
         public static void ImportCustomBundles() {
-            string[] paths = Directory.GetFiles($"{GentleSwap.Instance.gameDirectory}/bundles/characters/custom");
-            foreach (string path in paths) {
-                if (Path.GetExtension(path) != ".json") {
-                    bundles.Add(new CustomBundle(Path.GetFileName(path)));
+            FileInfo[] files = GentleSwap.customCharBundleDir.GetFiles();
+            foreach (FileInfo file in files) {
+                if (file.Extension != ".json") {
+                    bundles.Add(new CustomBundle(file.Name));
                 }
             }
             if (bundles.Count > 0) {
@@ -45,13 +46,13 @@ namespace GentleSwap {
 
 
             public CustomBundle(string _bundleName) {
-                bundlePath = $"{GentleSwap.Instance.gameDirectory}/bundles/characters/custom/{_bundleName}";
+                bundlePath = Path.Combine(GentleSwap.customCharBundleDir.FullName, _bundleName);
                 bundleName = _bundleName;
 
                 string json;
                 try {
                     bundleId = Helpers.GenerateDistinctIDs(1)[0];
-                    json = File.ReadAllText(Directory.GetFiles(GentleSwap.Instance.gameDirectory + "/bundles/characters/custom/").First(item => item.EndsWith(_bundleName + ".json")));
+                    json = File.ReadAllText(GentleSwap.customCharBundleDir.GetFiles().First(item => item.Name.EndsWith(_bundleName + ".json")).FullName);
                     JObject data = JObject.Parse(json);
 
                     dlc = (DLC)bundleId;

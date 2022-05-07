@@ -99,7 +99,7 @@ namespace GentleSwap {
                                     HDLIJDBFGKN.instance.EMFKKOJEIPN(player.nr, false);
                                     HDLIJDBFGKN.instance.IKPDLPDNHIJ(false, true);
 
-                                    Debug.Log($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
+                                    GentleSwap.Log.LogDebug($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
                                     P2P.SendOthers(new Message(MessagingHandler.customVariantMsg, P2P.localPeer.playerNr, identifier.variantNr, Encoding.Default.GetBytes(bundle.bundleName)));
                                     player.CharacterVariant = identifier.variant;
 
@@ -128,7 +128,7 @@ namespace GentleSwap {
         [HarmonyPrefix]
 
         static void GKBNNFEAJGO_Patch(ref Message __0) {
-            Debug.Log(__0.msg);
+            GentleSwap.Log.LogDebug(__0.msg);
             Msg msg = __0.msg;
             int playerNr = __0.playerNr;
             int index = __0.index;
@@ -139,14 +139,14 @@ namespace GentleSwap {
             if (msg == Msg.SEL_SKIN || msg == Msg.HOVER_SKIN) {
                 var skinID = index - LobbyHandler.GetNumUnlockedSkinsExcludingCustom();
 
-                Debug.Log(index);
+                GentleSwap.Log.LogDebug(index);
                 foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
                     foreach (BundleHandler.VariantIdentifier identifier in bundle.variantIdentifiers) {
                         if (skinID == identifier.variantNr) {
                             __0.index = (int)identifier.variant;
 
                             if (GameStates.GetCurrent() == LLBML.States.GameState.LOBBY_ONLINE) {
-                                Debug.Log($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
+                                GentleSwap.Log.LogDebug($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
                                 P2P.SendOthers(new Message(MessagingHandler.customVariantMsg, P2P.localPeer.playerNr, identifier.variantNr, Encoding.Default.GetBytes(bundle.bundleName)));
                             }
                         }

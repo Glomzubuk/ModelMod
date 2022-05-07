@@ -141,12 +141,12 @@ namespace GentleSwap {
         }
 
         void Awake() {
-            Debug.Log("Controller simplifier created");
+            GentleSwap.Log.LogDebug("Controller simplifier created");
 
         }
 
         void OnDestroy() {
-            Debug.Log("Controller simplifier destroyed");
+            GentleSwap.Log.LogDebug("Controller simplifier destroyed");
         }
 
         void Update() {

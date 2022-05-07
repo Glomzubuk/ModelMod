@@ -34,11 +34,15 @@ namespace GentleSwap {
 
         public string gameDirectory = BepInEx.Paths.GameRootPath;
         public static Harmony harmony = new Harmony(PluginInfos.PLUGIN_ID);
-        
+        internal static DirectoryInfo moddingFolder;
+        internal static DirectoryInfo customCharBundleDir;
+
 
         private void Awake() {
             Instance = this;
             Log = Logger;
+
+            InitDirectories();
 
             harmony.PatchAll(typeof(Patches.EPCDKLCABNC_Progress_Patches));
             harmony.PatchAll(typeof(Patches.Bundle_Patches));
@@ -52,6 +56,11 @@ namespace GentleSwap {
             BundleHandler.ImportCustomBundles();
         }
 
+        void InitDirectories ()
+        {
+            moddingFolder = LLBML.Utils.ModdingFolder.GetModSubFolder(this.Info);
+            customCharBundleDir = moddingFolder.CreateSubdirectory("bundle").CreateSubdirectory("characters").CreateSubdirectory("custom");
+        }
 
         void FixedUpdate() {
             if (screenPlayers == null) screenPlayers = FindObjectOfType<ScreenPlayers>();
@@ -59,9 +68,9 @@ namespace GentleSwap {
             if (BundleHandler.kiiiinkjkni != null) BundleHandler.AddCustomDLCToAccount();
             else BundleHandler.kiiiinkjkni = FindObjectOfType<KIIIINKJKNI>();
 
-            foreach (Message message in GameStates.Messages) {
+            /*foreach (Message message in GameStates.Messages) {
                 Logger.LogInfo("Message: " + message.msg.ToString() + "|" + message.playerNr + "|" + message.index + "|" + (message.ob ?? "null") + "|" + message.obSize);
-            }
+            }*/
         }
     }
 }
