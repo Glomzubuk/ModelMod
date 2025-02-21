@@ -76,9 +76,6 @@
       <HintPath>..\packages\MonoMod.Utils.21.12.13.1\lib\net35\MonoMod.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>libs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
       <HintPath>..\packages\UnityEngine.Modules.2018.4.31\lib\net35\UnityEngine.AccessibilityModule.dll</HintPath>
       <Private>False</Private>
