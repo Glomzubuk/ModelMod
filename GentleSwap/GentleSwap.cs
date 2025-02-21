@@ -1,22 +1,9 @@
 ﻿using BepInEx;
-using LLBML.Players;
-using LLBML.States;
 using LLBML;
-using UnityEngine;
 using HarmonyLib;
-using MonoMod.RuntimeDetour.HookGen;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using BepInEx.Logging;
-using LLHandlers;
 using LLScreen;
-using LLGUI;
-using System.Text;
-using LLBML.Messages;
 
 namespace GentleSwap {
     //Meta
@@ -74,4 +61,3 @@ namespace GentleSwap {
         }
     }
 }
-

@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using UnityEngine;
-using BepInEx;
-using LLScreen;
-using LLHandlers;
 
 namespace GentleSwap {
     public static class Helpers {
@@ -41,9 +36,5 @@ namespace GentleSwap {
             exhaustedVariantNumbers.AddRange(newIDs);
             return newIDs.ToArray();
         }
-
-
     }
-
-    
 }

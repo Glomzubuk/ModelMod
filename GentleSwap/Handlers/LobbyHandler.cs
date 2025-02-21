@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 using LLScreen;
-using LLGUI;
 using HarmonyLib;
 using LLBML.States;
 using Multiplayer;
@@ -107,7 +105,7 @@ namespace GentleSwap {
                                     playersSelection.SetCharacter(player.Character, identifier.variant, true, GentleSwap.screenPlayers.playerSelections.Length);
                                     playersSelection.characterModel.PlayCamAnim();
                                     AudioHandler.PlayMenuSfx(Sfx.MENU_SCROLL);
-                                    
+
                                     return false;
                                 }
                             }
@@ -115,7 +113,7 @@ namespace GentleSwap {
                         catch {
                             return true;
                         }
-                    }         
+                    }
                 }
             }
 

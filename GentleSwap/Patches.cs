@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Reflection.Emit;
 using System.IO;
-using System.Text;
-using UnityEngine;
 using HarmonyLib;
 using LLHandlers;
-using LLBML;
-using LLBML.States;
-using LLBML.Players;
-using Multiplayer;
-using LLScreen;
 
 namespace GentleSwap {
     public static class Patches {

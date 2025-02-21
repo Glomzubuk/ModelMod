@@ -1,11 +1,8 @@
 ﻿using LLBML.Players;
 using LLBML.Messages;
-using System;
-using System.Collections.Generic;
+using LLBML.States;
 using System.Linq;
 using System.Text;
-using UnityEngine;
-using LLScreen;
 
 namespace GentleSwap {
     public static class MessagingHandler {
@@ -37,9 +34,8 @@ namespace GentleSwap {
                             }
                         }
                     }
-                }             
+                }
             }
         }
-
     }
 }
