@@ -1,4 +1,6 @@
 .vs
+.idea
+.run
 packages
 obj
 bin
