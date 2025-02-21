@@ -17,7 +17,7 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 CharacterVariant variant_ref = __1;
 
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     if (character_ref == bundle.character) {
                         foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
                             if (variant_ref == variantIdentifier.variant) return true;
@@ -35,7 +35,7 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 CharacterVariant variant_ref = __1;
 
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     if (character_ref == bundle.character) {
                         foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
                             if (variant_ref == variantIdentifier.variant) return bundle.dlc;
@@ -56,7 +56,7 @@ namespace GentleSwap {
 
                 if (skinNum > 12) {
                     int customSkinID = skinNum - 13;
-                    foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                    foreach (CustomBundle bundle in BundleHandler.bundles) {
                         if (character_ref == bundle.character) {
                             foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
                                 if (variantIdentifier.variantNr == customSkinID) return $"{bundle.showcaseName}: {variantIdentifier.skinName}";
@@ -75,7 +75,7 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 int peer = __1;
 
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     if (character_ref == bundle.character) {
                         foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
                             incoming.Add(variantIdentifier.variant);
@@ -93,7 +93,7 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 int numOfCustomVariants = 0;
 
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     if (character_ref == bundle.character) {
                         numOfCustomVariants += bundle.variantIdentifiers.Count();
                     }
@@ -110,7 +110,7 @@ namespace GentleSwap {
             static void GetBundleString(ref Bundle __instance, ref string __result) {
                 if (__instance.bundleType == BundleType.DLC) {
                     GentleSwap.Log.LogDebug(__instance.dlc);
-                    foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                    foreach (CustomBundle bundle in BundleHandler.bundles) {
                         if (__instance.dlc == bundle.dlc) {
                             __result = "custom;" + Path.Combine(GentleSwap.customCharBundleDir.FullName,bundle.bundleName);
                         }

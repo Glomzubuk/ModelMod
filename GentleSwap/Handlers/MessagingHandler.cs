@@ -23,7 +23,7 @@ namespace GentleSwap {
 
                 Player player = Player.GetPlayer(remotePlayerNr);
                 GentleSwap.Log.LogDebug(remoteBundleName);
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     if (remoteBundleName == bundle.bundleName) {
                         if (GentleSwap.screenPlayers != null) {
                             PlayersSelection playerSelection = GentleSwap.screenPlayers.playerSelections.First(selection => selection.playerNr == remotePlayerNr);

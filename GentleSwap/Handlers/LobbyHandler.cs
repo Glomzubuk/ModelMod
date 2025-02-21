@@ -48,7 +48,7 @@ namespace GentleSwap {
 
             foreach (Player player in Player.GetPlayerList()) {
                 if (player.isLocal) {
-                    foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                    foreach (CustomBundle bundle in BundleHandler.bundles) {
                         if (player.Character == bundle.character) {
                             foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
                                 if (player.CharacterVariant == variantIdentifier.variant) {
@@ -82,7 +82,7 @@ namespace GentleSwap {
                 int currentVariantID = (int)player.variant;
 
                 if (__1.index == (int)player.Character) {
-                    foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                    foreach (CustomBundle bundle in BundleHandler.bundles) {
                         bool isFinalBundle = BundleHandler.bundles[BundleHandler.bundles.Count - 1] == bundle;
 
                         try {
@@ -138,7 +138,7 @@ namespace GentleSwap {
                 var skinID = index - LobbyHandler.GetNumUnlockedSkinsExcludingCustom();
 
                 GentleSwap.Log.LogDebug(index);
-                foreach (BundleHandler.CustomBundle bundle in BundleHandler.bundles) {
+                foreach (CustomBundle bundle in BundleHandler.bundles) {
                     foreach (BundleHandler.VariantIdentifier identifier in bundle.variantIdentifiers) {
                         if (skinID == identifier.variantNr) {
                             __0.index = (int)identifier.variant;

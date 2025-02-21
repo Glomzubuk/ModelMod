@@ -325,6 +325,7 @@
     <Compile Include="Handlers\MessagingHandler.cs" />
     <Compile Include="Handlers\UnlocksSkinsHandler.cs" />
     <Compile Include="Handlers\BundleHandler.cs" />
+    <Compile Include="Handlers\CustomBundle.cs" />
     <Compile Include="Handlers\LobbyHandler.cs" />
   </ItemGroup>
   <ItemGroup>

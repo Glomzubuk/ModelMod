@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using TinyJson;
+
+namespace GentleSwap
+{
+    public class CustomBundle {
+        public string bundlePath;
+        public string bundleName;
+        public int bundleId;
+        public Character character;
+        public string showcaseName;
+        public List<BundleHandler.VariantIdentifier> variantIdentifiers = new List<BundleHandler.VariantIdentifier>();
+        public DLC dlc;
+        public bool error = false;
+
+        public CustomBundle(string _bundleName) {
+            bundlePath = Path.Combine(GentleSwap.customCharBundleDir.FullName, _bundleName);
+            bundleName = _bundleName;
+
+            try {
+                bundleId = Helpers.GenerateDistinctIDs(1)[0];
+                string json = File.ReadAllText(GentleSwap.customCharBundleDir.GetFiles().First(item => item.Name.EndsWith(_bundleName + ".json")).FullName);
+
+                JsonData jsonData = json.FromJson<JsonData>();
+
+                dlc = (DLC)bundleId;
+                character = Helpers.getECharacterFromString(jsonData.character);
+                showcaseName = jsonData.showcaseName;
+
+                int numOfVariants = jsonData.variants;
+                int[] variantIDs = Helpers.GenerateDistinctIDs(numOfVariants);
+                List<JPLELOFJOOH.NCBHPNHFLAJ> variantInfos = JPLELOFJOOH.LKIFMPEFNGB.ToList();
+                for (var i = 0; i < numOfVariants; i++) {
+                    string newName = jsonData.variantNames[i];
+                    CharacterVariant newVariant = (CharacterVariant)variantIDs[i];
+
+                    BundleHandler.VariantIdentifier variantIdentifier = new BundleHandler.VariantIdentifier(newName, newVariant, i);
+                    variantIdentifiers.Add(variantIdentifier);
+                    string matName = $"{jsonData.prefabName}Mat";
+                    if (i > 0 && i < 11)
+                        matName += $"Alt0{i - 1}";
+                    else if (i != 0)
+                        matName += $"Mat_Alt{i - 1}";
+
+                    variantInfos.Add(new JPLELOFJOOH.NCBHPNHFLAJ(
+                        character,
+                        newVariant,
+                        jsonData.prefabName,
+                        matName,
+                        dlc));
+                }
+                JPLELOFJOOH.LKIFMPEFNGB = variantInfos.ToArray();
+
+
+                List<JPLELOFJOOH.GHKGDLBCFPK> meshInfos = JPLELOFJOOH.OGAHHGABFPE.ToList();
+                meshInfos.Add(new JPLELOFJOOH.GHKGDLBCFPK(jsonData.prefabName, jsonData.meshInfo.meshScale, jsonData.meshInfo.meshOffset));
+                JPLELOFJOOH.OGAHHGABFPE = meshInfos.ToArray();
+            }
+            catch (Exception ex) {
+                GentleSwap.Log.LogError($"Couldn't find a config file for {_bundleName} or it is wrongly configured");
+                GentleSwap.Log.LogError(ex);
+                error = true;
+            }
+
+            if (error == false) GentleSwap.Log.LogInfo($"Loaded bundle {_bundleName}..");
+        }
+
+        public class JsonData
+        {
+            public string character;
+            public string showcaseName;
+            public int variants;
+            public string[] variantNames;
+            public string prefabName;
+            public JsonMeshInfo meshInfo;
+        }
+
+        public class JsonMeshInfo
+        {
+            public float meshScale;
+            public int meshOffset;
+        }
+    }
+}
