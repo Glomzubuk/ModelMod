@@ -17,13 +17,7 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 CharacterVariant variant_ref = __1;
 
-                foreach (CustomBundle bundle in BundleHandler.bundles) {
-                    if (character_ref == bundle.character) {
-                        foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
-                            if (variant_ref == variantIdentifier.variant) return true;
-                        }
-                    }
-                }
+                if (BundleHandler.HasVariant(character_ref, variant_ref)) return true;
 
                 return incoming;
             }
@@ -35,13 +29,8 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 CharacterVariant variant_ref = __1;
 
-                foreach (CustomBundle bundle in BundleHandler.bundles) {
-                    if (character_ref == bundle.character) {
-                        foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
-                            if (variant_ref == variantIdentifier.variant) return bundle.dlc;
-                        }
-                    }
-                }
+                var bundVarTuple = BundleHandler.GetBundlesAndVariantsFor(character_ref, variant_ref).FirstOrDefault();
+                if (bundVarTuple != null) return bundVarTuple.Item1.dlc;
 
                 return incoming;
             }
@@ -56,12 +45,9 @@ namespace GentleSwap {
 
                 if (skinNum > 12) {
                     int customSkinID = skinNum - 13;
-                    foreach (CustomBundle bundle in BundleHandler.bundles) {
-                        if (character_ref == bundle.character) {
-                            foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
-                                if (variantIdentifier.variantNr == customSkinID) return $"{bundle.showcaseName}: {variantIdentifier.skinName}";
-                            }
-                        }
+                    foreach (var bundVarTuple in BundleHandler.GetBundlesAndVariantsFor(character_ref, customSkinID))
+                    {
+                        return $"{bundVarTuple.Item1.showcaseName}: {bundVarTuple.Item2.skinName}";
                     }
                 }
 
@@ -75,11 +61,9 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 int peer = __1;
 
-                foreach (CustomBundle bundle in BundleHandler.bundles) {
-                    if (character_ref == bundle.character) {
-                        foreach (BundleHandler.VariantIdentifier variantIdentifier in bundle.variantIdentifiers) {
-                            incoming.Add(variantIdentifier.variant);
-                        }
+                foreach (CustomBundle bundle in BundleHandler.GetBundlesFor(character_ref)) {
+                    foreach (var variantIdentifier in bundle.variantIdentifiers) {
+                        incoming.Add(variantIdentifier.variant);
                     }
                 }
 
@@ -93,10 +77,8 @@ namespace GentleSwap {
                 Character character_ref = __0;
                 int numOfCustomVariants = 0;
 
-                foreach (CustomBundle bundle in BundleHandler.bundles) {
-                    if (character_ref == bundle.character) {
-                        numOfCustomVariants += bundle.variantIdentifiers.Count();
-                    }
+                foreach (CustomBundle bundle in BundleHandler.GetBundlesFor(character_ref)) {
+                    numOfCustomVariants += bundle.variantIdentifiers.Count();
                 }
 
                 return __result + numOfCustomVariants;
@@ -110,10 +92,8 @@ namespace GentleSwap {
             static void GetBundleString(ref Bundle __instance, ref string __result) {
                 if (__instance.bundleType == BundleType.DLC) {
                     GentleSwap.Log.LogDebug(__instance.dlc);
-                    foreach (CustomBundle bundle in BundleHandler.bundles) {
-                        if (__instance.dlc == bundle.dlc) {
-                            __result = "custom;" + Path.Combine(GentleSwap.customCharBundleDir.FullName,bundle.bundleName);
-                        }
+                    foreach (CustomBundle bundle in BundleHandler.GetBundlesFor(__instance.dlc)) {
+                        __result = "custom;" + Path.Combine(GentleSwap.customCharBundleDir.FullName, bundle.bundleName);
                     }
                 }
             }

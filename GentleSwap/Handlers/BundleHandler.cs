@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using LLBML;
 
 namespace GentleSwap {
     public static class BundleHandler {
@@ -27,6 +29,45 @@ namespace GentleSwap {
             foreach (CustomBundle bundle in bundles) {
                 if (!kiiiinkjkni.LKGIPDAIFGA.TryGetValue(bundle.dlc, out bool added)) kiiiinkjkni.LKGIPDAIFGA.Add(bundle.dlc, true);
             }
+        }
+
+        public static IEnumerable<CustomBundle> GetBundlesFor(Character character)
+        {
+            return bundles.Where((bundle) => bundle.character == character);
+        }
+
+        public static IEnumerable<CustomBundle> GetBundlesFor(DLC dlc)
+        {
+            return bundles.Where((bundle) => bundle.dlc == dlc);
+        }
+
+        public static IEnumerable<Tuple<CustomBundle, VariantIdentifier>> GetBundlesAndVariantsFor(Character character, CharacterVariant variant)
+        {
+            foreach (var bundle in GetBundlesFor(character))
+            {
+                foreach (var variantIdentifier in bundle.variantIdentifiers)
+                {
+                    if (variantIdentifier.variant == variant)
+                        yield return Tuple.Create(bundle, variantIdentifier);
+                }
+            }
+        }
+
+        public static IEnumerable<Tuple<CustomBundle, VariantIdentifier>> GetBundlesAndVariantsFor(Character character, int variantNr)
+        {
+            foreach (var bundle in GetBundlesFor(character))
+            {
+                foreach (var variantIdentifier in bundle.variantIdentifiers)
+                {
+                    if (variantIdentifier.variantNr == variantNr)
+                        yield return Tuple.Create(bundle, variantIdentifier);
+                }
+            }
+        }
+
+        public static bool HasVariant(Character character, CharacterVariant variant)
+        {
+            return GetBundlesAndVariantsFor(character, variant).FirstOrDefault() != null;
         }
 
 
