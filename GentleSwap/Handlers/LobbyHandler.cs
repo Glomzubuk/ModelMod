@@ -83,13 +83,10 @@ namespace GentleSwap {
                             else {
                                 if (!selectedVariantIsLastInBundle) {
                                     var identifier = bundle.variantIdentifiers[selectedsVariantIndex + 1];
-                                    HDLIJDBFGKN.instance.JPNNBHNHHJC();
-                                    HDLIJDBFGKN.instance.EMFKKOJEIPN(player.nr, false);
-                                    HDLIJDBFGKN.instance.IKPDLPDNHIJ(false, true);
 
-                                    GentleSwap.Log.LogDebug($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
-                                    P2P.SendOthers(new Message(MessagingHandler.customVariantMsg, P2P.localPeer.playerNr, identifier.variantNr, Encoding.Default.GetBytes(bundle.bundleName)));
                                     player.CharacterVariant = identifier.variant;
+
+                                    GameStatesLobbyUtils.MakeSureReadyIs(false, true);
 
                                     PlayersSelection playersSelection = GentleSwap.screenPlayers.playerSelections.First(selection => selection.playerNr == player.nr);
                                     playersSelection.SetCharacter(player.Character, identifier.variant, true, GentleSwap.screenPlayers.playerSelections.Length);
@@ -128,17 +125,8 @@ namespace GentleSwap {
                 var skinID = index - LobbyHandler.GetNumUnlockedSkinsExcludingCustom();
 
                 GentleSwap.Log.LogDebug(index);
-                foreach (CustomBundle bundle in BundleHandler.bundles) {
-                    foreach (BundleHandler.VariantIdentifier identifier in bundle.variantIdentifiers) {
-                        if (skinID == identifier.variantNr) {
-                            __0.index = (int)identifier.variant;
-
-                            if (GameStates.GetCurrent() == LLBML.States.GameState.LOBBY_ONLINE) {
-                                GentleSwap.Log.LogDebug($"Sending message to other players: new Message({MessagingHandler.customVariantMsg}, {P2P.localPeer.playerNr}, {identifier.variantNr}, {Encoding.Default.GetBytes(bundle.bundleName)})");
-                                P2P.SendOthers(new Message(MessagingHandler.customVariantMsg, P2P.localPeer.playerNr, identifier.variantNr, Encoding.Default.GetBytes(bundle.bundleName)));
-                            }
-                        }
-                    }
+                foreach (var bundVarTup in BundleHandler.GetBundlesAndVariantsFor(Player.GetPlayer(playerNr).Character, skinID)) {
+                    __0.index = (int)bundVarTup.Item2.variant;
                 }
             }
         }
