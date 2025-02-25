@@ -10,17 +10,7 @@ using LLBML.Players;
 using LLHandlers;
 
 namespace GentleSwap {
-    public class LobbyHandler : MonoBehaviour {
-
-        public static LobbyHandler instance;
-        public ScreenPlayers screenPlayers;
-
-        public static LobbyHandler Initialize() {
-            GameObject gameObject = new GameObject("LobbyHandler");
-            instance = gameObject.AddComponent<LobbyHandler>();
-            return instance;
-        }
-
+    public static class LobbyHandler {
         public static int GetNumUnlockedSkinsExcludingCustom() {
             int n = 0;
             foreach (CharacterVariant variant in Enum.GetValues(typeof(CharacterVariant))) {
